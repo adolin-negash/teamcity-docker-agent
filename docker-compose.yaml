@@ -1,0 +1,44 @@
+version: '3'
+services:
+  teamcity-server:
+    image: "jetbrains/teamcity-server"
+    ports:
+      - "8111:8111"
+    volumes:
+      - "${TC_ROOT}/data:/data/teamcity_server/datadir"
+      - "${TC_ROOT}/logs:/opt/teamcity/logs"
+      - "${TC_ROOT}/ssh:/opt/teamcity/.ssh"
+
+#  teamcity-agent:
+#    image: "jetbrains/teamcity-agent"
+#    user: root
+#    environment:
+#      SERVER_URL: "http://teamcity-server:8111"
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock"
+#      - "${TC_ROOT}/agent:/data/teamcity_agent/conf"
+#      - "${TC_ROOT}/agent/m2:/home/buildagent/.m2"
+#      - "${TC_ROOT}/buildagent/work:/opt/buildagent/work"
+#      - "${TC_ROOT}/buildagent/temp:/opt/buildagent/temp"
+#      - "${TC_ROOT}/buildagent/tools:/opt/buildagent/tools"
+#      - "${TC_ROOT}/buildagent/plugins:/opt/buildagent/plugins"
+#      - "${TC_ROOT}/buildagent/system:/opt/buildagent/system"
+
+  teamcity-agent:
+    build:
+      dockerfile: Agent.Dockerfile
+      context: '.'
+      args:
+        teamcityMinimalAgentImage: 'zf/teamcity-minimal-custom-agent:1.0.1'
+    user: root
+    environment:
+      SERVER_URL: "http://teamcity-server:8111"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${TC_ROOT}/agent:/data/teamcity_agent/conf"
+      - "${TC_ROOT}/agent/m2:/home/buildagent/.m2"
+      - "${TC_ROOT}/buildagent/work:/opt/buildagent/work"
+      - "${TC_ROOT}/buildagent/temp:/opt/buildagent/temp"
+      - "${TC_ROOT}/buildagent/tools:/opt/buildagent/tools"
+      - "${TC_ROOT}/buildagent/plugins:/opt/buildagent/plugins"
+      - "${TC_ROOT}/buildagent/system:/opt/buildagent/system"
