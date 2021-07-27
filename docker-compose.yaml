@@ -2,6 +2,7 @@ version: '3'
 services:
   teamcity-server:
     image: "jetbrains/teamcity-server"
+    container_name: "teamcity-server"
     ports:
       - "8111:8111"
     volumes:
@@ -25,11 +26,13 @@ services:
 #      - "${TC_ROOT}/buildagent/system:/opt/buildagent/system"
 
   teamcity-agent:
+    image: "zf/teamcity-agent:latest"
     build:
       dockerfile: Agent.Dockerfile
-      context: '.'
+      context: '.'      
       args:
         teamcityMinimalAgentImage: 'zf/teamcity-minimal-custom-agent:1.0.1'
+    container_name: "teamcity-agent"
     user: root
     environment:
       SERVER_URL: "http://teamcity-server:8111"
