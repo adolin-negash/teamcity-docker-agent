@@ -26,11 +26,12 @@ RUN apt-get update && \
     apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
                         docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
                         containerd.io=1.4.8-1 \
-                        systemd && \
+                        systemd \
+                        docker-compose=1.25.0-1 && \
     systemctl disable docker && \
 #    sed -i -e 's/\r$//' /services/run-docker.sh && \
-    curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose && \
+#    curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+#    chmod +x /usr/local/bin/docker-compose && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
 #    chown -R buildagent:buildagent /services && \
     usermod -aG docker buildagent

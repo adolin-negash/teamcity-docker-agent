@@ -10,6 +10,8 @@ mkdir -p "${TC_ROOT}/buildagent/temp"
 mkdir -p "${TC_ROOT}/buildagent/tools"
 mkdir -p "${TC_ROOT}/buildagent/plugins"
 mkdir -p "${TC_ROOT}/buildagent/system"
+mkdir -p "${TC_ROOT}/buildagent/logs"
 
 docker-compose up
 docker-compose down
+docker system prune -f

@@ -34,8 +34,10 @@ services:
         teamcityMinimalAgentImage: 'zf/teamcity-minimal-custom-agent:1.0.1'
     container_name: "teamcity-agent"
     user: root
+    privileged: false
     environment:
       SERVER_URL: "http://teamcity-server:8111"
+      AGENT_NAME: "Smith 🕶️"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "${TC_ROOT}/agent:/data/teamcity_agent/conf"
@@ -45,3 +47,4 @@ services:
       - "${TC_ROOT}/buildagent/tools:/opt/buildagent/tools"
       - "${TC_ROOT}/buildagent/plugins:/opt/buildagent/plugins"
       - "${TC_ROOT}/buildagent/system:/opt/buildagent/system"
+      - "${TC_ROOT}/buildagent/logs:/opt/buildagent/logs"
