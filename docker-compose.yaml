@@ -29,7 +29,7 @@ services:
     image: "zf/teamcity-agent:latest"
     build:
       dockerfile: Agent.Dockerfile
-      context: '.'      
+      context: '.'
       args:
         teamcityMinimalAgentImage: 'zf/teamcity-minimal-custom-agent:1.0.1'
     container_name: "teamcity-agent"
@@ -38,10 +38,11 @@ services:
     environment:
       SERVER_URL: "http://teamcity-server:8111"
       AGENT_NAME: "Smith 🕶️"
+      M2_HOME: "/opt/buildagent/.m2"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "${TC_ROOT}/agent:/data/teamcity_agent/conf"
-      - "${TC_ROOT}/agent/m2:/home/buildagent/.m2"
+      - "${TC_ROOT}/agent/m2:/opt/buildagent/.m2"
       - "${TC_ROOT}/buildagent/work:/opt/buildagent/work"
       - "${TC_ROOT}/buildagent/temp:/opt/buildagent/temp"
       - "${TC_ROOT}/buildagent/tools:/opt/buildagent/tools"
