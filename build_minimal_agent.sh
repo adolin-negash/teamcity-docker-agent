@@ -21,7 +21,7 @@ docker rmi $IMAGE
 
 echo "Build image"
 docker build -t $IMAGE \
-    --build-arg jdkLinuxComponent=$jdkLinuxComponent \
-    --build-arg jdkLinuxComponentSha256SUM=$jdkLinuxComponentSha256SUM \
-    -f Minimal.Dockerfile \
-    --no-cache $TMP_DIR
+  --build-arg jdkLinuxComponent=$jdkLinuxComponent \
+  --build-arg jdkLinuxComponentSha256SUM=$jdkLinuxComponentSha256SUM \
+  -f Minimal.Dockerfile \
+  --no-cache $TMP_DIR

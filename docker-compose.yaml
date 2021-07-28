@@ -9,22 +9,6 @@ services:
       - "${TC_ROOT}/data:/data/teamcity_server/datadir"
       - "${TC_ROOT}/logs:/opt/teamcity/logs"
       - "${TC_ROOT}/ssh:/opt/teamcity/.ssh"
-
-#  teamcity-agent:
-#    image: "jetbrains/teamcity-agent"
-#    user: root
-#    environment:
-#      SERVER_URL: "http://teamcity-server:8111"
-#    volumes:
-#      - "/var/run/docker.sock:/var/run/docker.sock"
-#      - "${TC_ROOT}/agent:/data/teamcity_agent/conf"
-#      - "${TC_ROOT}/agent/m2:/home/buildagent/.m2"
-#      - "${TC_ROOT}/buildagent/work:/opt/buildagent/work"
-#      - "${TC_ROOT}/buildagent/temp:/opt/buildagent/temp"
-#      - "${TC_ROOT}/buildagent/tools:/opt/buildagent/tools"
-#      - "${TC_ROOT}/buildagent/plugins:/opt/buildagent/plugins"
-#      - "${TC_ROOT}/buildagent/system:/opt/buildagent/system"
-
   teamcity-agent:
     image: "zf/teamcity-agent:latest"
     build:
@@ -37,7 +21,7 @@ services:
     privileged: false
     environment:
       SERVER_URL: "http://teamcity-server:8111"
-      AGENT_NAME: "Smith 🕶️"
+      AGENT_NAME: "Smith"
       M2_HOME: "/opt/buildagent/.m2"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"

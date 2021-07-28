@@ -7,8 +7,6 @@ FROM ${teamcityMinimalAgentImage}
 
 USER root
 
-# COPY run-docker.sh /services/run-docker.sh
-
 ENV GIT_SSH_VARIANT=ssh
 
 ARG gitLinuxComponentVersion
@@ -29,11 +27,7 @@ RUN apt-get update && \
                         systemd \
                         docker-compose=1.25.0-1 && \
     systemctl disable docker && \
-#    sed -i -e 's/\r$//' /services/run-docker.sh && \
-#    curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-#    chmod +x /usr/local/bin/docker-compose && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-#    chown -R buildagent:buildagent /services && \
     usermod -aG docker buildagent
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
